@@ -54,9 +54,6 @@ Always returns a 404 status code with a JSON response.
    DD_TRACE_STATUS404RULE_ENABLED=false docker-compose up -d --build
    ```
 
-4. **Access the application:**
-   - Application: http://localhost:8080
-
 ## Testing the API
 
 ### Greeting Endpoint
@@ -67,6 +64,11 @@ curl http://localhost:8080/api/greeting
 ### Test 404 Endpoint
 ```bash
 curl -w "HTTP Status: %{http_code}\n" http://localhost:8080/api/not-found
+```
+
+### Run All Tests
+```bash
+./test-api.sh
 ```
 
 ## Datadog Integration
@@ -83,6 +85,10 @@ This application demonstrates Datadog's 404 status rule behavior:
 **With 404 Rule Disabled (DD_TRACE_STATUS404RULE_ENABLED=false):**
 - 404 responses keep their original resource name
 - Example: `/api/not-found` вк resource remains `GET /api/not-found`
+
+![Datadog 404 Rule Comparison](image.png)
+
+*The image shows the difference in resource naming: when 404 rule is enabled, resources become "404"; when disabled, they keep the original endpoint name like "GET /api/not-found".*
 
 **Configuration Options:**
 ```bash
@@ -174,25 +180,6 @@ docker-compose down
 - Verify the Datadog agent is running
 - Check that the Java agent is properly configured
 - Ensure the application is making requests
-
-## Project Structure
-
-```
-java-check-404/
-изибиб src/
-ив   ижибиб main/
-ив       изибиб java/com/example/
-ив       ив   изибиб Application.java
-ив       ив   ижибиб controller/
-ив       ив       ижибиб ApiController.java
-ив       ижибиб resources/
-ив           ижибиб application.yml
-изибиб Dockerfile
-изибиб docker-compose.yml
-изибиб pom.xml
-изибиб env.example
-ижибиб README.md
-```
 
 ## License
 
